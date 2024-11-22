@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Tarefas</h1>
+        <form id="formulario-tarefas">
+            <input type="text" id="input-tarefas" placeholder="Digite sua tarefa" required />
+            <button type="submit">Adicionar</button>
+        </form>
+
+        <ul id="lista-tarefas"></ul>
+
+        <button id="clear-list">Apagar Lista</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('form').on('submit', function (e) {
+                e.preventDefault();
+
+                const inputTarefas = $('#input-tarefas').val();
+                const novoItem = $(`<li>${inputTarefas}</li>`).hide();
+                $('#lista-tarefas').append(novoItem);
+                novoItem.slideDown(300);
+
+                $('#input-tarefas').val('');
+            });
+
+            $('#lista-tarefas').on('click', 'li', function () {
+                $(this).toggleClass('completed');
+            });
+
+            $('#clear-list').on('click', function () {
+                $('#lista-tarefas li').slideUp(300, function () {
+                    $(this).remove();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
